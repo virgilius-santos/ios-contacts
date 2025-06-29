@@ -10,7 +10,7 @@ public final class ApiService {
         }
     }
     
-    public convenience init(urlBase: String) {
+    public convenience init(urlBase: String = "") {
         self.init(urlBase: urlBase, session: URLSession.shared)
     }
     

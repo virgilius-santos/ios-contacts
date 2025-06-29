@@ -32,8 +32,8 @@ final class ListContactsViewModel {
     private var imageCache: [IndexPath: Data] = [:]
     private var pendingRequests: [IndexPath: URLSessionDataTask] = [:]
     
-    init() {
-        service = ListContactService(apiService: ApiService(urlBase: "https://669ff1b9b132e2c136ffa741.mockapi.io/").mainThreadSafe)
+    init(service: ListContactServicing) {
+        self.service = service
     }
 }
 

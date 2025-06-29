@@ -1,3 +1,5 @@
+import ApiServicing
+import ApiService
 import UIKit
 
 final class ContactCell: UITableViewCell {
@@ -19,6 +21,8 @@ final class ContactCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    lazy var apiService: ApiServicing = ApiService().cached().mainThreadSafe
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,11 +59,15 @@ final class ContactCell: UITableViewCell {
 
 extension ContactCell {
     func setupViewModel(_ contact: ContactViewModel) {
-        fullnameLabel.text = contact.name        
-        //        do {
-        //            let data = try Data(contentsOf: contact.photoURL)
-        //            let image = UIImage(data: data)
-        //            cell.contactImage.image = image
-        //        } catch _ {}
+        fullnameLabel.text = contact.name
+        apiService.fetch(request: .init(urlString: contact.imageURL.absoluteString)) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                contactImage.image = UIImage(data: response.data) ?? placeholder
+            case .failure:
+                contactImage.image = placeholder
+            }
+        }
     }
 }

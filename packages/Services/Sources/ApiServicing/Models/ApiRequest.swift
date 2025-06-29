@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ApiRequest: Equatable, Sendable {
+public struct ApiRequest: Equatable, Sendable, Hashable {
     public let urlPath: String
     
     public init(urlString: String) {

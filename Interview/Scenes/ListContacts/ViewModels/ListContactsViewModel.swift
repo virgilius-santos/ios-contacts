@@ -29,8 +29,6 @@ final class ListContactsViewModel {
     private let userIdsLegacy = UserIdsLegacy()
     
     private var contacts = [Contact]()
-    private var imageCache: [IndexPath: Data] = [:]
-    private var pendingRequests: [IndexPath: URLSessionDataTask] = [:]
     
     init(service: ListContactServicing) {
         self.service = service

@@ -2,8 +2,6 @@ import Foundation
 import ApiServicing
 import ApiDecoder
 
-private let apiURL = "https://669ff1b9b132e2c136ffa741.mockapi.io/picpay/ios/interview/contacts"
-
 protocol ListContactServicing {
     func fetchContacts(completion: @escaping (Result<[Contact], ApiError>) -> Void)
 }

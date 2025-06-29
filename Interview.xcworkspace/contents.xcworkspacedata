@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:packages/Services">
+   </FileRef>
+   <FileRef
       location = "container:Interview.xcodeproj">
    </FileRef>
 </Workspace>

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182456242E11B37100608CDB /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 182456232E11B37100608CDB /* Services */; };
 		6AB24DC023EB546D00530BA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB24DBF23EB546D00530BA5 /* AppDelegate.swift */; };
 		6AB24DC223EB546D00530BA5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB24DC123EB546D00530BA5 /* SceneDelegate.swift */; };
 		6AB24DC923EB546F00530BA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AB24DC823EB546F00530BA5 /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182456242E11B37100608CDB /* Services in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +268,9 @@
 				Base,
 			);
 			mainGroup = 6AB24DB323EB546D00530BA5;
+			packageReferences = (
+				182456222E11B37100608CDB /* XCLocalSwiftPackageReference "packages/Services" */,
+			);
 			productRefGroup = 6AB24DBD23EB546D00530BA5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -574,6 +579,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		182456222E11B37100608CDB /* XCLocalSwiftPackageReference "packages/Services" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = packages/Services;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		182456232E11B37100608CDB /* Services */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Services;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6AB24DB423EB546D00530BA5 /* Project object */;
 }

@@ -7,6 +7,8 @@ public protocol ApiServicing {
 
 #if DEBUG
 public final class MockApiServicing: ApiServicing {
+    public init() {}
+    
     public enum Message: Equatable {
         case fetch(request: ApiRequest)
         case cancel

@@ -1,6 +1,10 @@
 import UIKit
 
-class ContactCell: UITableViewCell {
+final class ContactCell: UITableViewCell {
+    static let identifier = String(describing: ContactCell.self)
+    
+    let placeholder = UIImage(systemName: "photo.on.rectangle")
+    
     lazy var contactImage: UIImageView = {
         let imgView = UIImageView()
         imgView.translatesAutoresizingMaskIntoConstraints = false
@@ -28,6 +32,11 @@ class ContactCell: UITableViewCell {
         configureViews()
     }
     
+    override func prepareForReuse() {
+        fullnameLabel.text = ""
+        contactImage.image = placeholder
+    }
+    
     func configureViews() {
         contentView.addSubview(contactImage)
         contentView.addSubview(fullnameLabel)
@@ -41,5 +50,16 @@ class ContactCell: UITableViewCell {
         fullnameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15).isActive = true
         fullnameLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         fullnameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+}
+
+extension ContactCell {
+    func setupViewModel(_ contact: ContactViewModel) {
+        fullnameLabel.text = contact.name        
+        //        do {
+        //            let data = try Data(contentsOf: contact.photoURL)
+        //            let image = UIImage(data: data)
+        //            cell.contactImage.image = image
+        //        } catch _ {}
     }
 }

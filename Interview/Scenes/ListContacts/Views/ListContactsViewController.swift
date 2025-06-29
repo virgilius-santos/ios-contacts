@@ -21,7 +21,7 @@ final class ListContactsViewController: UIViewController, Alertable {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 120
-        tableView.register(ContactCell.self, forCellReuseIdentifier: String(describing: ContactCell.self))
+        tableView.register(ContactCell.self, forCellReuseIdentifier: ContactCell.identifier)
         tableView.backgroundView = activity
         tableView.tableFooterView = UIView()
         return tableView
@@ -57,20 +57,13 @@ extension ListContactsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ContactCell.self), for: indexPath) as? ContactCell else {
-            return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: ContactCell.identifier,
+            for: indexPath
+        )
+        if let cell = cell as? ContactCell, let contact = viewModel.contact(at: indexPath.row) {
+            cell.setupViewModel(contact)
         }
-        
-        let contact = viewModel.contact(at: indexPath.row)
-        cell.fullnameLabel.text = contact?.name
-        let placeholder = UIImage(systemName: "photo.on.rectangle")
-        cell.contactImage.image = contact?.data.map(UIImage.init(data:)) ?? placeholder
-        
-        //        do {
-        //            let data = try Data(contentsOf: contact.photoURL)
-        //            let image = UIImage(data: data)
-        //            cell.contactImage.image = image
-        //        } catch _ {}
         return cell
     }
 }

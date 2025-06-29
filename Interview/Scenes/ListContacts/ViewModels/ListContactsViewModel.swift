@@ -12,7 +12,7 @@ final class UserIdsLegacy {
 
 struct ContactViewModel: Equatable {
     let name: String
-    let data: Data?
+    let imageURL: URL
 }
 
 protocol ListContactsViewModeling {
@@ -69,7 +69,7 @@ extension ListContactsViewModel: ListContactsViewModeling {
         guard let contact = contacts[safe: index] else { return nil }
         return ContactViewModel(
             name: contact.name,
-            data: nil
+            imageURL: contact.photoURL
         )
     }
     

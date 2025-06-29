@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		182456242E11B37100608CDB /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 182456232E11B37100608CDB /* Services */; };
+		182456272E11EB5400608CDB /* ApiDecoder in Frameworks */ = {isa = PBXBuildFile; productRef = 182456262E11EB5400608CDB /* ApiDecoder */; };
+		182456292E11EB5400608CDB /* ApiService in Frameworks */ = {isa = PBXBuildFile; productRef = 182456282E11EB5400608CDB /* ApiService */; };
+		1824562B2E11EB5400608CDB /* ApiServicing in Frameworks */ = {isa = PBXBuildFile; productRef = 1824562A2E11EB5400608CDB /* ApiServicing */; };
 		6AB24DC023EB546D00530BA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB24DBF23EB546D00530BA5 /* AppDelegate.swift */; };
 		6AB24DC223EB546D00530BA5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB24DC123EB546D00530BA5 /* SceneDelegate.swift */; };
 		6AB24DC923EB546F00530BA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AB24DC823EB546F00530BA5 /* Assets.xcassets */; };
@@ -54,7 +56,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				182456242E11B37100608CDB /* Services in Frameworks */,
+				1824562B2E11EB5400608CDB /* ApiServicing in Frameworks */,
+				182456272E11EB5400608CDB /* ApiDecoder in Frameworks */,
+				182456292E11EB5400608CDB /* ApiService in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,11 +72,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		182456252E11EB5400608CDB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6AB24DB323EB546D00530BA5 = {
 			isa = PBXGroup;
 			children = (
 				6AB24DBE23EB546D00530BA5 /* Interview */,
 				6AB24DD523EB546F00530BA5 /* InterviewTests */,
+				182456252E11EB5400608CDB /* Frameworks */,
 				6AB24DBD23EB546D00530BA5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -588,9 +600,17 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		182456232E11B37100608CDB /* Services */ = {
+		182456262E11EB5400608CDB /* ApiDecoder */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Services;
+			productName = ApiDecoder;
+		};
+		182456282E11EB5400608CDB /* ApiService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApiService;
+		};
+		1824562A2E11EB5400608CDB /* ApiServicing */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApiServicing;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

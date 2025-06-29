@@ -1,7 +1,7 @@
 import ApiServicing
 import Foundation
 
-extension ApiServicing {
+public extension ApiServicing {
     func fetchDecoded<T: Decodable>(
         request: ApiRequest,
         decoder: JSONDecoder = JSONDecoder(),

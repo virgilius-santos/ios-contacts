@@ -1,26 +1,22 @@
 import Foundation
+import ApiService
+import ApiServicing
 
-class ListContactsViewModel {
-    private let service = ListContactService()
+final class ListContactsViewModel {
+    private let service: ListContactServicing
     
-    private var completion: (([Contact]?, Error?) -> Void)?
-    
-    init() { }
-    
-    func loadContacts(_ completion: @escaping ([Contact]?, Error?) -> Void) {
-        self.completion = completion
-        service.fetchContacts { contacts, err in
-            self.handle(contacts, err)
-        }
+    init() {
+        service = ListContactService(apiService: ApiService(urlBase: "https://669ff1b9b132e2c136ffa741.mockapi.io/").mainThreadSafe)
     }
     
-    private func handle(_ contacts: [Contact]?, _ error: Error?) {
-        if let e = error {
-            completion?(nil, e)
-        }
-        
-        if let contacts = contacts {
-            completion?(contacts, nil)
+    func loadContacts(_ completion: @escaping ([Contact]?, Error?) -> Void) {
+        service.fetchContacts { result in
+            switch result {
+            case .success(let success):
+                completion(success, nil)
+            case .failure(let failure):
+                completion(nil, failure)
+            }
         }
     }
 }

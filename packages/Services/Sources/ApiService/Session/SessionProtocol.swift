@@ -1,4 +1,5 @@
 import Foundation
+import ApiServicing
 
 protocol SessionProtocol {
     func dataTask(
@@ -21,7 +22,13 @@ public final class MockSessionTask: SessionTaskProtocol {
         case cancel
     }
 
-    public private(set) var messages: [Message] = []
+    public private(set) var messages: [Message] = [] {
+        didSet {
+            anyMessages.appendLast(of: messages)
+        }
+    }
+    
+    public var anyMessages = AnyMessages()
 
     public func resume() {
         messages.append(.resume)
@@ -34,10 +41,16 @@ public final class MockSessionTask: SessionTaskProtocol {
 
 final class MockSession: SessionProtocol {
     public enum Message: Equatable {
-        case dataTask(request: URL)
+        case dataTask(URL)
     }
 
-    public private(set) var messages: [Message] = []
+    public private(set) var messages: [Message] = [] {
+        didSet {
+            anyMessages.appendLast(of: messages)
+        }
+    }
+    
+    public var anyMessages = AnyMessages()
 
     public var task: MockSessionTask = .init()
     
@@ -46,7 +59,7 @@ final class MockSession: SessionProtocol {
         with url: URL,
         completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
     ) -> SessionTaskProtocol {
-        messages.append(.dataTask(request: url))
+        messages.append(.dataTask(url))
         completions.append(completionHandler)
         return task
     }

@@ -14,7 +14,13 @@ public final class MockApiServicing: ApiServicing {
         case cancel
     }
     
-    public var messages: [Message] = []
+    public var messages: [Message] = [] {
+        didSet {
+            anyMessages.appendLast(of: messages)
+        }
+    }
+    
+    public var anyMessages = AnyMessages()
     
     public private(set) var fetchCompletions: [(Result<ApiResponse, ApiError>) -> Void] = []
     public func fetch(request: ApiRequest, completion: @escaping (Result<ApiResponse, ApiError>) -> Void) {

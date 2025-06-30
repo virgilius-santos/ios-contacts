@@ -2,8 +2,8 @@ import Foundation
 import ApiService
 import ApiServicing
 
-final class UserIdsLegacy {
-    var legacyIds = [10, 11, 12, 13]
+struct UserIdsLegacy {
+    var legacyIds: [Int] = [10, 11, 12, 13]
     
     func isLegacy(id: Int) -> Bool {
         legacyIds.contains(id)
@@ -26,12 +26,13 @@ final class ListContactsViewModel {
     weak var displayLogic: ListContactsDisplayLogic?
     
     private let service: ListContactServicing
-    private let userIdsLegacy = UserIdsLegacy()
+    private let userIdsLegacy: UserIdsLegacy
     
     private var contacts = [Contact]()
     
-    init(service: ListContactServicing) {
+    init(service: ListContactServicing, userIdsLegacy: UserIdsLegacy = .init()) {
         self.service = service
+        self.userIdsLegacy = userIdsLegacy
     }
 }
 

@@ -6,6 +6,7 @@ final class ListContactViewModelTests: XCTestCase {
     typealias Sut = ListContactsViewModel
     
     final class Doubles {
+        let dependenciesMock = MockDependenciesContainer()
         let serviceMock = MockListContactServicing()
         let displayLogicMock = MockListContactsDisplayLogic()
         let userIdsLegacyMock = UserIdsLegacy(legacyIds: [0])
@@ -14,7 +15,11 @@ final class ListContactViewModelTests: XCTestCase {
     
     func makeSut() -> (Sut, Doubles) {
         let doubles = Doubles()
-        let sut = Sut(service: doubles.serviceMock, userIdsLegacy: doubles.userIdsLegacyMock)
+        let sut = Sut(
+            dependencies: doubles.dependenciesMock,
+            service: doubles.serviceMock,
+            userIdsLegacy: doubles.userIdsLegacyMock
+        )
         sut.displayLogic = doubles.displayLogicMock
         
         doubles.serviceMock.anyMessages = doubles.anyMessages
@@ -50,9 +55,9 @@ extension ListContactViewModelTests {
         let (sut, doubles) = makeSut()
         assertLoadContactsCompletedSuccessfully(sut, doubles)
         
-        let result = sut.contact(at: 0)
+        let result = sut.contact(at: 1)
         
-        XCTAssertEqual(result, .fixture())
+        XCTAssertEqual(result?.name, "name")
     }
     
     func test_didSelectContact_atIndexZero_shouldShowAttentionMessage() {
@@ -138,18 +143,6 @@ extension Contact {
             id: id,
             name: name,
             photoURL: photoURL
-        )
-    }
-}
-
-extension ContactViewModel {
-    static func fixture(
-        name: String = "",
-        imageURL: URL = URL(string: "https://example.com/photo.jpg")!
-    ) -> Self {
-        .init(
-            name: name,
-            imageURL: imageURL
         )
     }
 }

@@ -7,10 +7,12 @@ protocol ListContactServicing {
 }
 
 final class ListContactService: ListContactServicing {
+    typealias Dependencies = HasApiService
+    
     let apiService: ApiServicing
     
-    init(apiService: ApiServicing) {
-        self.apiService = apiService
+    init(dependencies: Dependencies) {
+        self.apiService = dependencies.apiService
     }
     
     func fetchContacts(completion: @escaping (Result<[Contact], ApiError>) -> Void) {

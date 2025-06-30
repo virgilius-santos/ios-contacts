@@ -22,9 +22,6 @@ final class ContactCell: UITableViewCell {
         return label
     }()
     
-    // deixada como var para facilitar os testes fazendo injeção por parametros
-    var apiService: ApiServicing = ApiService().cached().mainThreadSafe
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -58,16 +55,11 @@ final class ContactCell: UITableViewCell {
 }
 
 extension ContactCell {
-    func setupViewModel(_ contact: ContactViewModel) {
-        fullnameLabel.text = contact.name
-        apiService.fetch(request: .init(urlString: contact.imageURL.absoluteString)) { [weak self] result in
+    func setupViewModel(_ viewModel: ContactViewModeling) {
+        fullnameLabel.text = viewModel.name
+        viewModel.loadImage { [weak self] data in
             guard let self else { return }
-            switch result {
-            case .success(let response):
-                contactImage.image = UIImage(data: response.data) ?? placeholder
-            case .failure:
-                contactImage.image = placeholder
-            }
+            contactImage.image = data.map(UIImage.init(data:)) ?? placeholder
         }
     }
 }

@@ -10,27 +10,26 @@ struct UserIdsLegacy {
     }
 }
 
-struct ContactViewModel: Equatable {
-    let name: String
-    let imageURL: URL
-}
-
 protocol ListContactsViewModeling {
     func loadContacts()
     func numberOfContacts() -> Int
-    func contact(at index: Int) -> ContactViewModel?
+    func contact(at index: Int) -> ContactViewModeling?
     func didSelectedContact(at index: Int)
 }
 
 final class ListContactsViewModel {
+    typealias Dependencies = HasImageService
+    
     weak var displayLogic: ListContactsDisplayLogic?
     
+    private let dependencies: Dependencies
     private let service: ListContactServicing
     private let userIdsLegacy: UserIdsLegacy
     
-    private var contacts = [Contact]()
+    private var contacts = [ContactViewModel]()
     
-    init(service: ListContactServicing, userIdsLegacy: UserIdsLegacy = .init()) {
+    init(dependencies: Dependencies, service: ListContactServicing, userIdsLegacy: UserIdsLegacy = .init()) {
+        self.dependencies = dependencies
         self.service = service
         self.userIdsLegacy = userIdsLegacy
     }
@@ -49,7 +48,7 @@ extension ListContactsViewModel: ListContactsViewModeling {
     private func handle(_ result: Result<[Contact], ApiError>) {
         switch result {
         case .success(let contacts):
-            self.contacts = contacts
+            self.contacts = contacts.map(mapContact(_:))
             displayLogic?.displayContacts()
         case .failure(let failure):
             displayLogic?.showMessage(
@@ -60,20 +59,20 @@ extension ListContactsViewModel: ListContactsViewModeling {
         displayLogic?.stopLoading()
     }
     
+    private func mapContact(_ contact: Contact) -> ContactViewModel {
+        .init(contact: contact, imageService: dependencies.imageService)
+    }
+    
     func numberOfContacts() -> Int {
         contacts.count
     }
     
-    func contact(at index: Int) -> ContactViewModel? {
-        guard let contact = contacts[safe: index] else { return nil }
-        return ContactViewModel(
-            name: contact.name,
-            imageURL: contact.photoURL
-        )
+    func contact(at index: Int) -> ContactViewModeling? {
+        contacts[safe: index]
     }
     
     func didSelectedContact(at index: Int) {
-        guard let contact = contacts[safe: index] else { return }
+        guard let contact = contacts[safe: index]?.contact else { return }
         guard userIdsLegacy.isLegacy(id: contact.id) else {
             displayLogic?.showMessage(title: "Você tocou em", message: contact.name)
             return

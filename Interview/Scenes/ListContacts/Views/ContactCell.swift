@@ -22,7 +22,8 @@ final class ContactCell: UITableViewCell {
         return label
     }()
     
-    lazy var apiService: ApiServicing = ApiService().cached().mainThreadSafe
+    // deixada como var para facilitar os testes fazendo injeção por parametros
+    var apiService: ApiServicing = ApiService().cached().mainThreadSafe
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,10 +31,9 @@ final class ContactCell: UITableViewCell {
         configureViews()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        configureViews()
+        nil
     }
     
     override func prepareForReuse() {
